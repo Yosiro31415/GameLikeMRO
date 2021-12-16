@@ -1,0 +1,6 @@
+#include "../include/resource.hpp"
+
+
+BOLD IMAGE "./bold.png"
+STAR IMAGE "./star.png"
+CIRCLE IMAGE "./circle.png"
