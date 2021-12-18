@@ -33,13 +33,13 @@ void SceneTitle::initScene(GameManager* in_gmanager, D3DManager* in_dmanager) {
 }
 
 void SceneTitle::SceneMain() {
-    getKey();
+    checkKey();
     gmanager->applyCamera(&camera);
     for (int i = 0; i < listObject.size(); i++) {
         listObject.at(i)->ObjectMain();
     }
 }
-void SceneTitle::getKey() {
+void SceneTitle::checkKey() {
     static bool consecutive = false;
     if (gmanager->imanager->getKey(KEY::LEFT) && !consecutive) {
         listObject.at(currentTab)->col.setVec(0.6, 0.6, 0.6);

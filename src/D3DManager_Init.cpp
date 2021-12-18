@@ -159,7 +159,7 @@ bool D3DManager::init(HINSTANCE hInst, int cmdShow, LPCWSTR nameWnd, LPCWSTR nam
                     DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f), DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f))));
             DirectX::XMStoreFloat4x4(&inf.cbuffer.matProj,
                 DirectX::XMMatrixTranspose(DirectX::XMMatrixOrthographicLH((float)width, (float)height, 1.0f, 2000.f)));
-            DirectX::XMStoreFloat4(&inf.cbuffer.vecColar, DirectX::XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f));
+            DirectX::XMStoreFloat4(&inf.cbuffer.vecColor, DirectX::XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f));
             DirectX::XMStoreFloat4(&inf.cbuffer.vecLight, DirectX::XMVectorSet(0.0f, 0.f, 1.f, 0.f));
             DirectX::XMStoreFloat4(&inf.cbuffer.params, DirectX::XMVectorSet(0.0f, 0.f, 0.f, 0.f));
         }
@@ -169,9 +169,6 @@ bool D3DManager::init(HINSTANCE hInst, int cmdShow, LPCWSTR nameWnd, LPCWSTR nam
         D3D11_VIEWPORT viewport = {0.0f, 0.0f, (float)width, (float)height, 0.0f, 1.0f};
         inf.pImContext->RSSetViewports(1U, &viewport);
 
-        {
-            
-        }
         // Blend mode
         D3D11_BLEND_DESC descBlend;
         ZeroMemory(&descBlend, sizeof(D3D11_BLEND_DESC));

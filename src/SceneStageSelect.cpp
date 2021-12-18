@@ -44,7 +44,7 @@ void SceneStageSelect::initScene(GameManager* in_gmanager, D3DManager* in_dmanag
 }
 
 void SceneStageSelect::SceneMain() {
-    getKey();
+    checkKey();
     for (int i = 0; i < listObject.size(); i++) {
         if (current == i) {
         }
@@ -54,7 +54,7 @@ void SceneStageSelect::SceneMain() {
     chara->pos.setVec(WindowSize::width * (2 + current) / 7 - WindowSize::width / 2, 150, 0);
     chara->ObjectMain();
 }
-void SceneStageSelect::getKey() {
+void SceneStageSelect::checkKey() {
     static bool conse = false;
     if (gmanager->imanager->getKey(KEY::LEFT)) {
         if (!conse && current != 0) {

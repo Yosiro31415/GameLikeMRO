@@ -75,4 +75,53 @@ protected:
     const bool touchable = true;
 };
 
+struct ObjectEntitity : public ObjectGame {
+protected:
+    ObjectEntitity() {
+        col.setCol(1, 1, 1, 1);
+        deg.setVec(0, 0, 0);
+        scl.setVec(100, 100, 100);
+        pos.setVec(0, 0, 0);
+        speed.setVec(0, 0, 0);
+        accel.setVec(0, 0, 0);
+    }
+    virtual void initObject(Scene* in_scene) = 0;
+    virtual void ObjectMain() = 0;
+    void applyGravity() {
+        accel.addVec(0, -1, 0);
+    }
+    void applyAccel() {
+        speed.addVec(&accel);
+    }
+    void applySpeed() {
+        pos.addVec(&speed);
+        if (pos.y < 0) {
+            pos.y = 0;
+            accel.y = 0;
+            speed.y = 0;
+        }
+    }
+    bool isTouchable() {
+        return touchable;
+    }
+    void AttenuateSpeed() {
+        if (std::abs(speed.x) > 100) {
+            speed.addVec(-speed.x / 10, 0, 0);
+        }
+    }
+    const bool touchable = true;
+    VecObject speed;
+    VecObject accel;
+};
+
+struct ObjectPlayer : public ObjectEntitity {
+
+    virtual void initObject(Scene* in_scene);
+    virtual void ObjectMain();
+    void checkKey();
+
+protected:
+    const bool touchable = true;
+};
+
 #endif

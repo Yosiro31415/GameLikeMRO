@@ -1,17 +1,9 @@
 ﻿#include "../include/HeaderApp.hpp"
 #include "../include/GameManager.hpp"
 #include "../include/Scene.hpp"
-D3DManager* D3DManager::getPtrD3DManager() {
-    static D3DManager dmanager = D3DManager();
-    return &dmanager;
-}
-
-InputManager* InputManager::getPtrImanager() {
-    static InputManager imanager = InputManager();
-    return &imanager;
-}
 
 void GameManager::updateScene() {
+    imanager->inspect();
     currentScene->SceneMain();
 }
 
@@ -38,8 +30,8 @@ void GameManager::drawIdea() {
 }
 
 void GameManager::setIdea(Model* model, Texture* text) {
-    idea.pIBuffer = model->pIBuffer;
-    idea.pVBuffer = model->pVBuffer;
+    idea.pIBuffer = model->pIBuffer.Get();
+    idea.pVBuffer = model->pVBuffer.Get();
     idea.colR = model->colR;
     idea.colG = model->colG;
     idea.colB = model->colB;

@@ -35,7 +35,7 @@ void D3DManager::drawModel(ModelInf* minf) {
     DirectX::XMStoreFloat4x4(&inf.cbuffer.matTrs,
 
         DirectX::XMMatrixTranspose(DirectX::XMMatrixTranslation(minf->posX, minf->posY, minf->posZ)));
-    DirectX::XMStoreFloat4(&inf.cbuffer.vecColar, DirectX::XMVectorSet(minf->colR, minf->colG, minf->colB, minf->colA));
+    DirectX::XMStoreFloat4(&inf.cbuffer.vecColor, DirectX::XMVectorSet(minf->colR, minf->colG, minf->colB, minf->colA));
 
     // put constantBuffer into sheder
     inf.pImContext->UpdateSubresource(inf.pCBuffer.Get(), 0U, nullptr, &inf.cbuffer, 0U, 0U);

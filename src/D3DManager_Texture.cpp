@@ -79,8 +79,8 @@ bool D3DManager::createTexture(unsigned int id, Texture* pTexture) {
 
         if (FAILED(inf.pDevice->CreateShaderResourceView(pTex.Get(), &descShader, pTexture->pSRView.GetAddressOf())))
             throw "failed to create shader resource view";
-    } catch (const char* error) {
-        MessageBoxA(nullptr, error, "warning", MB_OK);
+    } catch (std::string error) {
+        Deb::cout(error);
         return false;
     }
     return true;

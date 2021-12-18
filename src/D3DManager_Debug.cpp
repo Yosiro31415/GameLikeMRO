@@ -7,7 +7,6 @@ void D3DManager::DebugBox(int i) {
     MessageBoxA(nullptr, buff, "int", MB_OK);
 }
 
-void D3DManager::DebugBox(const char* str){
+void D3DManager::DebugBox(const char* str) {
     MessageBoxA(nullptr, str, "const char*", MB_OK);
-} 
-
+}

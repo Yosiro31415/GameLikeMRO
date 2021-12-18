@@ -41,5 +41,4 @@ VS_OUT vs_main(VS_IN input) {
     output.prm = params;
 
     return output;
-
 }

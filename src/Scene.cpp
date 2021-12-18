@@ -40,6 +40,12 @@ Scene::~Scene() {
 }
 
 void Scene::drawObject(ObjectGame* obj) {
+    // static Texture* tex = new Texture();
+    // gmanager->dmanager->createTexture(101, tex);
+    // setModel(obj);
+    // gmanager->dmanager->applyTexture(tex);
+    // Deb::cout("hige");
+    // gmanager->dmanager->drawModel(&model);
     setModel(obj);
     gmanager->setIdea(&model, listTexture.at(obj->numTexture));
     gmanager->drawIdea();

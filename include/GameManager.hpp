@@ -4,12 +4,12 @@
 #include "../include/HeaderApp.hpp"
 class Scene;
 class GameManager {
-    D3DManager* dmanager;
     Scene* currentScene;
     ModelInf idea;
-    MSG* msg;
+
 
 public:
+    D3DManager* dmanager;
     InputManager* imanager;
     void initManager(D3DManager* in_dmanager, InputManager* in_imanager);
     void changeCurrent(Scene* in_scene);

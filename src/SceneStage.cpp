@@ -21,7 +21,7 @@ void SceneStage::initScene(GameManager* in_gmanager, D3DManager* in_dmanager) {
     in_dmanager->createCamera(WindowSize::width, WindowSize::height, &camera);
     camera.posZ = -20.f;
 
-    ObjectTab* player = new ObjectTab();
+    ObjectPlayer* player = new ObjectPlayer();
     charaPlayer = player;
     charaPlayer->initObject(this);
     charaPlayer->numTexture = CIRCLE;
@@ -41,7 +41,7 @@ void SceneStage::initScene(GameManager* in_gmanager, D3DManager* in_dmanager) {
     BackGround->pos.setVec(0, 0, 10);
     BackGround->scl.setVec(10000, 10000, 1);
 
-    std::fstream test("../res/test.csv");
+    std::fstream test(pathCSV);
     std::string strBuff;
     int numColum = 0;
     int numLine = 0;
@@ -70,7 +70,7 @@ void SceneStage::initScene(GameManager* in_gmanager, D3DManager* in_dmanager) {
 
 void SceneStage::SceneMain() {
     // std::cout << "SceneMain called " << std::endl;
-    getKey();
+    checkKey();
     for (int i = 0; i < listObject.size(); i++) {
         // listObject.at(i)->ObjectMain();
     }
@@ -93,10 +93,9 @@ void SceneStage::SceneMain() {
     }
     charaPlayer->ObjectMain();
     BG->ObjectMain();
-    Deb::cout("now");
 }
 
-void SceneStage::getKey() {
+void SceneStage::checkKey() {
     if (gmanager->imanager->getKey(KEY::UP)) {
         charaPlayer->scl.addVec(1, 1, 0);
     }

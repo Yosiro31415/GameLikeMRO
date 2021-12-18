@@ -29,7 +29,7 @@ struct ConstantBuffer {
     DirectX::XMFLOAT4X4 matTrs;
     DirectX::XMFLOAT4X4 matView;
     DirectX::XMFLOAT4X4 matProj;
-    DirectX::XMFLOAT4 vecColar;
+    DirectX::XMFLOAT4 vecColor;
     DirectX::XMFLOAT4 vecLight;
     DirectX::XMFLOAT4 params;
 };
@@ -115,6 +115,16 @@ public:
 
     bool createTexture(unsigned int id, Texture* pTexture);
     void applyTexture(Texture* pTexture);
+
+    void setMatrixScale(float sclX, float sclY, float sclZ);
+    void setMatrixRotate(float degX, float degY, float degZ);
+    void setMatrixTranslate(float posX, float posY, float posZ);
+    void setMatrixView(
+        float posX, float posY, float posZ, float dirX, float dirY, float dirZ, float uppX, float uppY, float uppZ);
+    void setMatrixProject(float width, float height, float angle, float nearZ, float farZ, bool parse);
+    void setVectorColor(float colR, float colG, float colB, float colA);
+    void setVectorLight(float x, float y, float z, float w);
+    void setVectorParams(float x, float y, float z, float w);
 };
 
 // input
@@ -183,14 +193,17 @@ public:
 
 class Deb {
 public:
-    static void cout(std::string str) {
+    static std::string cout(std::string str) {
         std::cout << str << std::endl;
+        return str;
     }
-    static void cout(int num) {
+    static int cout(int num) {
         std::cout << num << std::endl;
+        return num;
     }
-    static void cout(float num) {
+    static float cout(float num) {
         std::cout << num << std::endl;
+        return num;
     }
 };
 

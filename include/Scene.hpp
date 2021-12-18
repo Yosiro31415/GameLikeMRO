@@ -10,7 +10,6 @@ class MapGame;
 class Scene {
 protected:
     Scene();
-    GameManager* gmanager;
     Camera camera;
     ModelSquare model;
     std::map<int, Texture*> listTexture = {};
@@ -35,18 +34,19 @@ public:
     virtual ~Scene();
     virtual void addObject(ObjectGame* obj);
     virtual void deleteObject(ObjectGame* obj);
+    GameManager* gmanager;
     void addTexture(ObjectGame* obj);
     void drawObject(ObjectGame* obj);
     virtual void initScene(GameManager* in_gmanager, D3DManager* in_dmanager) = 0;
     virtual void SceneMain() = 0;
-    virtual void getKey() = 0;
+    virtual void checkKey() = 0;
 };
 
 class DummyScene : public Scene {
 public:
     void initScene(GameManager* in_gmanager, D3DManager* in_dmanager);
     void SceneMain();
-    void getKey();
+    void checkKey();
 };
 
 class SceneSample : public Scene {
@@ -54,7 +54,7 @@ class SceneSample : public Scene {
 public:
     void initScene(GameManager* in_gmanager, D3DManager* in_dmanager);
     void SceneMain();
-    void getKey();
+    void checkKey();
 };
 
 class SceneStageSelect : public Scene {
@@ -65,7 +65,7 @@ public:
     ~SceneStageSelect();
     void initScene(GameManager* in_gmanager, D3DManager* in_dmanager);
     void SceneMain();
-    void getKey();
+    void checkKey();
     int current = 0;
 };
 
@@ -73,14 +73,16 @@ class SceneTitle : public Scene {
 public:
     void initScene(GameManager* in_gmanager, D3DManager* in_dmanager);
     void SceneMain();
-    void getKey();
+    void checkKey();
     int currentTab = 0;
 };
 
 class SceneStage : public Scene {
+
 private:
     const static int mapHeight = 20;
     ObjectGame* putStageObj(std::string nameObj);
+    const std::string pathCSV = "../res/test.csv";
 
 public:
     virtual ~SceneStage();
@@ -90,9 +92,18 @@ public:
     std::vector<ObjectGame*> listEntitiy = {};
     virtual void initScene(GameManager* in_gmanager, D3DManager* in_dmanager);
     virtual void SceneMain();
-    void getKey();
+    void checkKey();
     void addEntity(ObjectGame* obj);
     void deleteEntity(ObjectGame* obj);
+};
+
+class SceneStageSample : public SceneStage {
+private:
+    const static int mapHeight = 20;
+    ObjectGame* putStageObj(std::string nameObj);
+    std::string pathCSV = "../src/stageSample";
+
+public:
 };
 
 #endif

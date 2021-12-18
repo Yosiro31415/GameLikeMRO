@@ -14,19 +14,5 @@ public:
     bool init(D3DManager* pManager);
 };
 
-class ModelKuso : public Model {
-public:
-    bool init(D3DManager* pManager);
-};
-
-class ModelCube : public Model {
-public:
-    bool init(D3DManager* pManager);
-};
-
-class ModelCircle : public Model {
-public:
-    bool init(D3DManager* pManager);
-};
 
 #endif

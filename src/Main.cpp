@@ -5,10 +5,12 @@
 #include "../include/ObjectGame.hpp"
 
 int main() {
-    return WinMain(GetModuleHandle(NULL), NULL, NULL, SW_SHOWDEFAULT);
+    Deb::cout("CONSOLE LAUNCHED");
+    return Deb::cout(WinMain(GetModuleHandle(NULL), NULL, NULL, SW_SHOWDEFAULT));
 }
 
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPInst, LPSTR pCmd, int cmdShow) {
+
     Sleep(120);
 
     LPCWSTR kNameWnd = L"テスト";
@@ -21,34 +23,36 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPInst, LPSTR pCmd, int cmdShow) {
     D3DManager* dmanager = D3DManager::getPtrD3DManager();
     dmanager->init(hInst, cmdShow, kNameWnd, kNameWndClass, kWidth, kHeight, kWindowed);
 
+    MSG msg;
+
     // inputManager
-    InputManager* imanager = InputManager::getPtrImanager();
 
     // camera
     Camera camera = Camera();
     dmanager->createCamera(kWidth, kHeight, &camera);
     camera.posZ = -20.f;
-
     dmanager->applyCamera(&camera);
+
+    // input
+    InputManager* imanager = InputManager::getPtrImanager();
+    imanager->addKeycode(KEY::LEFT, VK_LEFT, GAMEPAD_KEYTYPE::ThumbLL, XINPUT_GAMEPAD_DPAD_LEFT);
+    imanager->addKeycode(KEY::RIGHT, VK_RIGHT, GAMEPAD_KEYTYPE::ThumbLR, XINPUT_GAMEPAD_DPAD_RIGHT);
+    imanager->addKeycode(KEY::UP, VK_UP, GAMEPAD_KEYTYPE::ThumbLR, XINPUT_GAMEPAD_DPAD_UP);
+    imanager->addKeycode(KEY::DOWN, VK_DOWN, GAMEPAD_KEYTYPE::ThumbLR, XINPUT_GAMEPAD_DPAD_DOWN);
+    imanager->addKeycode(KEY::C, 0x43, GAMEPAD_KEYTYPE::RTrigger, XINPUT_GAMEPAD_B);
+    imanager->addKeycode(KEY::Z, 0x5A, GAMEPAD_KEYTYPE::LTrigger, XINPUT_GAMEPAD_A);
 
     // gameManager
     GameManager gmanager;
-    MSG msg;
     gmanager.initManager(dmanager, imanager);
-    // firstScene
-    SceneSample* sample = new SceneSample();
 
+    // firstScene
+    SceneStageSample* sample = new SceneStageSample();
     sample->initScene(&gmanager, dmanager);
     Deb::cout("complete init scene");
     gmanager.changeCurrent(sample);
     Deb::cout("complete change scene");
-    // input
-    imanager->addKeycode(KEY::LEFT, VK_LEFT, GAMEPAD_KEYTYPE::ThumbLL, XINPUT_GAMEPAD_DPAD_LEFT);
-    imanager->addKeycode(KEY::RIGHT, VK_RIGHT, GAMEPAD_KEYTYPE::ThumbLR, XINPUT_GAMEPAD_DPAD_RIGHT);
-    imanager->addKeycode(KEY::UP, VK_UP, GAMEPAD_KEYTYPE::ThumbLR, XINPUT_GAMEPAD_DPAD_RIGHT);
-    imanager->addKeycode(KEY::DOWN, VK_DOWN, GAMEPAD_KEYTYPE::ThumbLR, XINPUT_GAMEPAD_DPAD_RIGHT);
-    imanager->addKeycode(KEY::Z, 0x5A, GAMEPAD_KEYTYPE::LTrigger, XINPUT_GAMEPAD_DPAD_RIGHT);
-    imanager->addKeycode(KEY::C, 0x43, GAMEPAD_KEYTYPE::RTrigger, XINPUT_GAMEPAD_DPAD_RIGHT);
+
     // main loop
     float Time = 0.;
     while (true) {
@@ -58,7 +62,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPInst, LPSTR pCmd, int cmdShow) {
             TranslateMessage(&msg);
             DispatchMessageW(&msg);
         } else {
-            imanager->inspect();
             dmanager->drawBegin();
             gmanager.updateScene();
             dmanager->drawEnd();
